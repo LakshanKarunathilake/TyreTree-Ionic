@@ -1,14 +1,50 @@
+<!--
+  Generated template for the HomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
 <ion-header>
+
   <ion-navbar>
+    
     <ion-title>
-      Ionic Blank
-    </ion-title>
+      <ion-icon name="home"></ion-icon>
+      Home</ion-title>
   </ion-navbar>
+
 </ion-header>
 
+
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <div style="padding-bottom: 25px;">
+      <ion-searchbar></ion-searchbar>
+  </div>
+  <!-- <ion-buttons>
+    <div class="row">
+      <div class="col home-buttonset">
+        <a href="" style="color:white;">Records Entry</a>
+      </div>
+      <div class="col">
+        <button ion-button block round outline>Reports</button>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+          <button ion-button block round outline>Giveaways</button>
+        </div>
+        <div class="col">
+          <button ion-button block round outline>Receiving</button>
+        </div>
+      </div>
+  </ion-buttons> -->
 </ion-content>
+
+<ion-footer>
+    <ion-buttons >
+        <button ion-button class="home-buttonset" (click)="dataEntryPage()">Entry</button>
+        <button ion-button class="home-buttonset" (click)="reportsPage()">Reports</button>
+        <button ion-button class="home-buttonset" (click)="giveAwaysPage()">Give Aways</button>
+        <button ion-button class="home-buttonset" (click)="recievingsPage()">Recievings</button>
+      </ion-buttons>
+</ion-footer>
