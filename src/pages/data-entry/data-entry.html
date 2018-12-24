@@ -3,7 +3,18 @@
 </ion-header>
 <ion-content padding>
   <p>Please select the category you want to feed the data</p>
-  <button ion-button color="primary" block>Tyre Details</button>
-  <button ion-button color="primary" block>Bus Details</button>
-  <button ion-button color="primary" block>Tyre House Details</button>
+  <button ion-button color="primary" block (click)="movePage('TyreAddPage')">
+    Tyre Details
+  </button>
+  <button ion-button color="primary" block (click)="movePage('BusAddPage')">
+    Bus Details
+  </button>
+  <button
+    ion-button
+    color="primary"
+    block
+    (click)="movePage('TyreHouseAddPage')"
+  >
+    Tyre House Details
+  </button>
 </ion-content>

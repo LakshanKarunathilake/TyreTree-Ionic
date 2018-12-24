@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 /**
  * Generated class for the DataEntryPage page.
@@ -10,16 +10,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-data-entry',
-  templateUrl: 'data-entry.html',
+  selector: "page-data-entry",
+  templateUrl: "data-entry.html"
 })
 export class DataEntryPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DataEntryPage');
+    console.log("ionViewDidLoad DataEntryPage");
   }
-
+  movePage(page: string) {
+    console.log("page", page);
+    this.navCtrl.push(page);
+  }
 }
