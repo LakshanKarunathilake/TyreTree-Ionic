@@ -5,14 +5,31 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>TyreHouseAddPage</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Tyre House Add</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-
+  <ion-item>
+    <ion-label floating>Name</ion-label>
+    <ion-input type="text" [(ngModel)]="tyreHouse.name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Address</ion-label>
+    <ion-input type="text" [(ngModel)]="tyreHouse.address"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Contact Number</ion-label>
+    <ion-input type="text" [(ngModel)]="tyreHouse.contactNumber"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Contact Person</ion-label>
+    <ion-input type="text" [(ngModel)]="tyreHouse.contactPerson"></ion-input>
+  </ion-item>
 </ion-content>
+<ion-footer padding>
+  <button ion-button block color="danger" (click)="saveTyreHouse()">
+    Save
+  </button>
+</ion-footer>
