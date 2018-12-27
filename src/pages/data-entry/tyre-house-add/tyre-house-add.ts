@@ -29,6 +29,7 @@ export class TyreHouseAddPage {
   tyreHouse = {} as TyreHouse;
   loading: Loading;
   tyreHouse_Collection: AngularFirestoreCollection;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,6 +43,21 @@ export class TyreHouseAddPage {
   }
 
   saveTyreHouse() {
+    const successMessage = `Tyre House Registered Successfully 
+    <br>
+    <br>
+    <div align="left">
+    <p>TyreHouse Name : ${this.tyreHouse.name}</p>
+    <p>TyreHouse Address : ${this.tyreHouse.address}</p>
+    <p>TyreHouse Contact Number : ${this.tyreHouse.contactNumber}</p>
+    <p>TyreHouse Contact Person : ${this.tyreHouse.contactPerson}</p>
+    </div>
+    
+   
+    <div align="center"> <img src="assets/imgs/failure_icon.png" weight="50px" height="50px"></div>
+   `;
+    const errorMessage =
+      'Adding Failure <br><br><div align="center"> <img src="assets/imgs/failure_icon.png" weight="50px" height="50px"></div>';
     this.presentLoading();
     this.afs
       .collection("TyreHouses")
@@ -49,26 +65,17 @@ export class TyreHouseAddPage {
       .set(this.tyreHouse)
       .then(() => {
         this.hideLoading();
-        let message = `Tyre House Registered Successfully 
-        <br>
-        <br>
-        <div align="left">
-        <p>TyreHouse Name : ${this.tyreHouse.name}</p>
-        <p>TyreHouse Address : ${this.tyreHouse.address}</p>
-        <p>TyreHouse Contact Number : ${this.tyreHouse.contactNumber}</p>
-        <p>TyreHouse Contact Person : ${this.tyreHouse.contactPerson}</p>
-        </div>
-        
-       
-        <div align="center"> <img src="assets/imgs/failure_icon.png" weight="50px" height="50px"></div>
-       `;
-        this.presentAlert(message);
+        this.tyreHouse = {};
+        this.presentAlert(successMessage);
+      })
+      .catch(error => {
+        this.presentAlert(errorMessage);
       });
   }
   presentLoading() {
     this.loading = this.loadingCtrl.create({
       spinner: "crescent",
-      content: "Loading data..."
+      content: "Saving To DB..."
     });
     this.loading.present();
   }
