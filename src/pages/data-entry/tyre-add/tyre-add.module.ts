@@ -1,9 +1,14 @@
 import { NgModule } from "@angular/core";
 import { IonicPageModule } from "ionic-angular";
 import { TyreAddPage } from "./tyre-add";
-import { MatChipsModule, MatSelectModule } from "@angular/material/";
+import {
+  MatChipsModule,
+  MatSelectModule,
+  MatNativeDateModule
+} from "@angular/material/";
 import { MatInputModule } from "@angular/material/input";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [TyreAddPage],
@@ -13,7 +18,9 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
     MatChipsModule,
     MatSelectModule,
     MatInputModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class TyreAddPageModule {}

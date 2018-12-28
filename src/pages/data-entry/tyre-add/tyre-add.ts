@@ -11,7 +11,7 @@ import { Tyre } from "../../../models/Tyre";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
-import { map, startWith } from "rxjs/operators";
+import { map, startWith, filter } from "rxjs/operators";
 import { TyreHouse } from "../../../models/TyreHouse";
 
 /**
@@ -35,9 +35,11 @@ export class TyreAddPage {
   brandFormControl = new FormControl();
   tyreHouseFormControl = new FormControl();
   brandOptions: string[] = ["MRF", "DUNLOP", "DSI"];
-  tyreHouseOptions: string[] = [];
+  tyreHouseOptions: string[] = ["jhjhkj"];
   tyreBrands: Observable<string[]>;
   tyreHouses: Observable<string[]>;
+
+  date = new FormControl(new Date());
 
   ngOnInit() {
     this.tyreBrands = this.brandFormControl.valueChanges.pipe(
@@ -62,19 +64,22 @@ export class TyreAddPage {
     private afs: AngularFirestore,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController
-  ) {
-    this.afs
-      .collection("TyreHouses")
-      .snapshotChanges()
-      .subscribe(tyreHouses => {
-        tyreHouses.forEach(tyreHouse =>
-          this.tyreHouseOptions.push(tyreHouse.payload.doc.id)
-        );
-      });
-  }
+  ) {}
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad TyreAddPage");
+
+    this.tyreHouses = this.afs
+      .collection("TyreHouses")
+      .valueChanges()
+      .pipe(
+        map(tyreHouse => {
+          return tyreHouse.map(el => {
+            console.log("name", el["name"]);
+            return el["name"];
+          });
+        })
+      );
   }
 
   saveTyreDetails() {
