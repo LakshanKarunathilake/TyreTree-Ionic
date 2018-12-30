@@ -29,16 +29,9 @@ export class BusAddPage {
 
   busAddForm: FormGroup;
 
-  frontLeftFC = new FormControl();
-  frontRightFC = new FormControl();
-  rearLeftOuterFC = new FormControl();
-  rearLeftInnerFC = new FormControl();
-  rearRightOuterFC = new FormControl();
-  rearRightInnerFC = new FormControl();
+  tyreNumbers: string[] = [];
 
-  dummyArray: string[] = [];
-
-  tyreNumbers: Observable<string[]>;
+  tyreNumbersObservable: Observable<string[]>;
   frontLeftNumberArray: Observable<string[]>;
   frontRightNumberArray: Observable<string[]>;
   rearLeftOuterNumberArray: Observable<string[]>;
@@ -50,24 +43,28 @@ export class BusAddPage {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.busAddForm = this.fb.group({
-      frontLeft: this.frontLeftFC,
-      frontRight: this.frontRightFC,
-      rearLeftOuter: this.rearLeftOuterFC,
-      rearLeftInner: this.rearLeftInnerFC,
-      rearRightOuter: this.rearRightOuterFC,
-      rearRightInner: this.rearRightInnerFC,
+      frontLeft: "",
+      frontRight: "",
+      rearLeftOuter: "",
+      rearLeftInner: "",
+      rearRightOuter: "",
+      rearRightInner: "",
       busNumber: ""
     });
 
-    this.frontLeftNumberArray = this.frontLeftFC.valueChanges.pipe(
-      startWith(""),
-      map(value => this._filter(value, this.dummyArray))
-    );
+    this.tyreNumbersObservable = this.busAddForm
+      .get("frontLeft")
+      .valueChanges.pipe(
+        startWith(""),
+        map(value => {
+          console.log("values", value, "tyreNumbers", this.tyreNumbers);
+          return this._filter(value, this.tyreNumbers);
+        })
+      );
   }
 
   private _filter(value: string, options: string[]): string[] {
     const filterValue = value.toLowerCase();
-    console.log("options", options);
     return options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
@@ -79,7 +76,7 @@ export class BusAddPage {
     private alertCtrl: AlertController,
     private fb: FormBuilder
   ) {
-    this.tyreNumbers = this.afs
+    this.tyreNumbersObservable = this.afs
       .collection("Tyres")
       .valueChanges()
       .pipe(
@@ -87,16 +84,25 @@ export class BusAddPage {
           return tyres.map(tyre => tyre["tyreNumber"]);
         })
       );
+
+    this.presentLoading("Loading DATA");
+
+    this.tyreNumbersObservable.subscribe(res => {
+      console.log("res", res);
+      this.tyreNumbers = res as string[];
+      this.hideLoading();
+      this.busAddForm.get("frontLeft").setValue("");
+    });
   }
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad BusAddPage");
   }
 
-  presentLoading() {
+  presentLoading(message: string) {
     this.loading = this.loadingCtrl.create({
       spinner: "crescent",
-      content: "Saving To DB..."
+      content: message
     });
     this.loading.present();
   }

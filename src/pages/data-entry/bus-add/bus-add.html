@@ -13,16 +13,22 @@
 <ion-content padding>
   <form [formGroup]="busAddForm">
     <mat-form-field style="width: 100%">
+      <input matInput placeholder="Bus Number" formControlName="busNumber" />
+    </mat-form-field>
+    <mat-form-field style="width: 100%">
       <input
         type="text"
-        placeholder="Tyre House"
+        placeholder="Front Left Tyre Number"
         aria-label="Number"
         matInput
         formControlName="frontLeft"
         [matAutocomplete]="frontLeft"
       />
       <mat-autocomplete #frontLeft="matAutocomplete">
-        <mat-option *ngFor="let tyre of (tyreNumbers | async)" [value]="tyre">
+        <mat-option
+          *ngFor="let tyre of (tyreNumbersObservable | async)"
+          [value]="tyre"
+        >
           {{ tyre }}
         </mat-option>
       </mat-autocomplete>

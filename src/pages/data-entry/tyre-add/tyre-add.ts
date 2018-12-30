@@ -59,14 +59,22 @@ export class TyreAddPage {
         return this._filter(value, this.brandOptions);
       })
     );
-    this.tyreHouses = this.tyreHouseFormControl.valueChanges.pipe(
-      startWith(""),
-      map(value => {
-        console.log("val 2", value);
-        console.log("tyrehouseoptionss", this.tyreHouseOptions);
-        return this._filter(value, this.tyreHouseOptions);
-      })
-    );
+
+    this.afs
+      .collection("TyreHouses")
+      .valueChanges()
+      .subscribe(res => {
+        res.forEach(element => {
+          this.tyreHouseOptions.push(element["name"]);
+        });
+        this.tyreHouses = this.tyreHouseFormControl.valueChanges.pipe(
+          startWith(""),
+          map(value => {
+            console.log("val 2", value);
+            return this._filter(value, this.tyreHouseOptions);
+          })
+        );
+      });
   }
 
   private _filter(value: string, options: string[]): string[] {
@@ -82,20 +90,7 @@ export class TyreAddPage {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder
-  ) {
-    this.tyreHouses = this.afs
-      .collection("TyreHouses")
-      .valueChanges()
-      .pipe(
-        map(tyreHouse => {
-          return tyreHouse.map(el => el["name"]);
-        })
-      );
-    this.tyreHouses.subscribe(res => {
-      console.log("res", res);
-      this.tyreHouseOptions = res as string[];
-    });
-  }
+  ) {}
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad TyreAddPage");
