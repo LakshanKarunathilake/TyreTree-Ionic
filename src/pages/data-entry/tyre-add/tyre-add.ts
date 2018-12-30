@@ -7,12 +7,10 @@ import {
   LoadingController,
   AlertController
 } from "ionic-angular";
-import { Tyre } from "../../../models/Tyre";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { FormControl } from "@angular/forms";
+import { FormControl, FormBuilder, FormGroup } from "@angular/forms";
 import { Observable } from "rxjs";
 import { map, startWith, filter } from "rxjs/operators";
-import { TyreHouse } from "../../../models/TyreHouse";
 
 /**
  * Generated class for the TyreAddPage page.
@@ -30,31 +28,50 @@ export interface User {
   templateUrl: "tyre-add.html"
 })
 export class TyreAddPage {
-  tyre = {} as Tyre;
   loading: Loading;
-  brandFormControl = new FormControl();
-  tyreHouseFormControl = new FormControl();
+
   brandOptions: string[] = ["MRF", "DUNLOP", "DSI"];
-  tyreHouseOptions: string[] = ["jhjhkj"];
   tyreBrands: Observable<string[]>;
+
+  tyreHouseOptions: string[] = [];
   tyreHouses: Observable<string[]>;
 
-  date = new FormControl(new Date());
+  brandFormControl = new FormControl();
+  tyreHouseFormControl = new FormControl();
+  purchasedDateFormControl = new FormControl(new Date());
+
+  tyreAddForm: FormGroup;
 
   ngOnInit() {
+    this.tyreAddForm = this.formBuilder.group({
+      tyreNumber: "",
+      price: "",
+      brand: this.brandFormControl,
+      tyreHouse: this.tyreHouseFormControl,
+      tyreStatus: "",
+      purchasedDate: this.purchasedDateFormControl
+    });
+
     this.tyreBrands = this.brandFormControl.valueChanges.pipe(
       startWith(""),
-      map(value => this._filter(value, this.brandOptions))
+      map(value => {
+        console.log("val 1", value);
+        return this._filter(value, this.brandOptions);
+      })
     );
     this.tyreHouses = this.tyreHouseFormControl.valueChanges.pipe(
       startWith(""),
-      map(value => this._filter(value, this.tyreHouseOptions))
+      map(value => {
+        console.log("val 2", value);
+        console.log("tyrehouseoptionss", this.tyreHouseOptions);
+        return this._filter(value, this.tyreHouseOptions);
+      })
     );
   }
 
   private _filter(value: string, options: string[]): string[] {
     const filterValue = value.toLowerCase();
-    console.log("options", options);
+    console.log(filterValue);
     return options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
@@ -63,50 +80,53 @@ export class TyreAddPage {
     public navParams: NavParams,
     private afs: AngularFirestore,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
-  ) {}
-
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad TyreAddPage");
-
+    private alertCtrl: AlertController,
+    private formBuilder: FormBuilder
+  ) {
     this.tyreHouses = this.afs
       .collection("TyreHouses")
       .valueChanges()
       .pipe(
         map(tyreHouse => {
-          return tyreHouse.map(el => {
-            console.log("name", el["name"]);
-            return el["name"];
-          });
+          return tyreHouse.map(el => el["name"]);
         })
       );
+    this.tyreHouses.subscribe(res => {
+      console.log("res", res);
+      this.tyreHouseOptions = res as string[];
+    });
+  }
+
+  ionViewDidLoad() {
+    console.log("ionViewDidLoad TyreAddPage");
   }
 
   saveTyreDetails() {
+    const formSubmission = this.tyreAddForm.value;
     const successMessage = `Tyre details added Successfully 
         <br>
         <br>
         <div align="left">
-        <p>Tyre Number : ${this.tyre.number}</p>
-        <pTyre purchased from : ${this.tyre.purchasedTyreHouse}</p>
-        <p>Tyre price : ${this.tyre.price}</p>
-        <p>Tyre Brand : ${this.tyre.brand}</p>
-        <p>Tyre Purchased Date : ${this.tyre.purchasedDate}</p>
+        <p>Tyre Number : ${formSubmission.tyreNumber}</p>
+        <pTyre purchased from : ${formSubmission.purchasedTyreHouse}</p>
+        <p>Tyre price : ${formSubmission.price}</p>
+        <p>Tyre Brand : ${formSubmission.brand}</p>
+        <p>Tyre Purchased Date : ${formSubmission.purchasedDate}</p>
+        <p>Tyre Status : ${formSubmission.tyreStatus}</p>
         </div>
         
        
-        <div align="center"> <img src="assets/imgs/failure_icon.png" weight="50px" height="50px"></div>
+        <div align="center"> <img src="../assets/imgs/success.png" weight="50px" height="50px"></div>
        `;
     const errorMessage =
-      'Adding Failure <br><br><div align="center"> <img src="assets/imgs/failure_icon.png" weight="50px" height="50px"></div>';
+      'Adding Failure <br><br><div align="center"> <img src="../../../assets/imgs/success.png" weight="40px" height="40px"></div>';
     this.presentLoading();
     this.afs
       .collection("Tyres")
-      .doc(this.tyre.number)
-      .set(this.tyre)
+      .doc(formSubmission.tyreNumber)
+      .set(formSubmission)
       .then(() => {
         this.hideLoading();
-        this.tyre = {};
         this.presentAlert(successMessage);
       })
       .catch(err0r => {

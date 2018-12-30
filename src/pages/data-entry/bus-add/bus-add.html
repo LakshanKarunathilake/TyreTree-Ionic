@@ -11,22 +11,23 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-item>
-    <ion-label floating>Name</ion-label>
-    <ion-input type="text" [(ngModel)]="tyreHouse.name"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating>Address</ion-label>
-    <ion-input type="text" [(ngModel)]="tyreHouse.address"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating>Contact Number</ion-label>
-    <ion-input type="text" [(ngModel)]="tyreHouse.contactNumber"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating>Contact Person</ion-label>
-    <ion-input type="text" [(ngModel)]="tyreHouse.contactPerson"></ion-input>
-  </ion-item>
+  <form [formGroup]="busAddForm">
+    <mat-form-field style="width: 100%">
+      <input
+        type="text"
+        placeholder="Tyre House"
+        aria-label="Number"
+        matInput
+        formControlName="frontLeft"
+        [matAutocomplete]="frontLeft"
+      />
+      <mat-autocomplete #frontLeft="matAutocomplete">
+        <mat-option *ngFor="let tyre of (tyreNumbers | async)" [value]="tyre">
+          {{ tyre }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
 </ion-content>
 <ion-footer padding>
   <button ion-button block color="danger" (click)="saveBusDetauls()">
