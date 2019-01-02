@@ -83,8 +83,9 @@ export class BusAddPage {
   }
 
   private _filter(value: string, options: string[]): string[] {
-    console.log("value :", value);
-    console.log("options :", options);
+    if (value === null) {
+      value = "";
+    }
     const filterValue = value.toLowerCase();
     return options.filter(option => option.toLowerCase().includes(filterValue));
   }
@@ -92,19 +93,6 @@ export class BusAddPage {
   onFocusEvent(formController) {
     const formValue = this.busAddForm.value[formController];
     if (formValue === "") this.tyreNumberOptions = this.tyreNumbers;
-  }
-
-  private mapTheObservableForOptions(formControllerName) {
-    console.log("mapping");
-    this.tyreNumbersObservable = this.busAddForm
-      .get(formControllerName)
-      .valueChanges.pipe(
-        startWith(""),
-        map(value => {
-          console.log("values", value, "tyreNumbers", this.tyreNumbers);
-          return this._filter(value, this.tyreNumbers);
-        })
-      );
   }
 
   constructor(
