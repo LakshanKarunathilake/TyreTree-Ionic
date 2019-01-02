@@ -23,20 +23,105 @@
         matInput
         formControlName="frontLeft"
         [matAutocomplete]="frontLeft"
+        (focus)="onFocusEvent('frontLeft')"
       />
-      <mat-autocomplete #frontLeft="matAutocomplete">
-        <mat-option
-          *ngFor="let tyre of (tyreNumbersObservable | async)"
-          [value]="tyre"
-        >
+      <mat-autocomplete autoActiveFirstOption #frontLeft="matAutocomplete">
+        <mat-option *ngFor="let tyre of tyreNumberOptions" [value]="tyre">
           {{ tyre }}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
+    <mat-form-field style="width: 100%">
+      <input
+        type="text"
+        placeholder="Front Right Tyre Number"
+        aria-label="Number"
+        matInput
+        formControlName="frontRight"
+        [matAutocomplete]="frontRight"
+        (focus)="onFocusEvent('frontRight')"
+      />
+      <mat-autocomplete #frontRight="matAutocomplete">
+        <mat-option *ngFor="let tyre of tyreNumberOptions" [value]="tyre">
+          {{ tyre }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%">
+      <input
+        type="text"
+        placeholder="Rear Left outer Tyre Number"
+        aria-label="Number"
+        matInput
+        formControlName="rearLeftOuter"
+        [matAutocomplete]="rearLeftOuter"
+        (focus)="onFocusEvent('rearLeftOuter')"
+      />
+      <mat-autocomplete #rearLeftOuter="matAutocomplete">
+        <mat-option *ngFor="let tyre of tyreNumberOptions" [value]="tyre">
+          {{ tyre }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%">
+      <input
+        type="text"
+        placeholder="Rear Left Inner Tyre Number"
+        aria-label="Number"
+        matInput
+        formControlName="rearLeftInner"
+        (focus)="onFocusEvent('rearLeftInner')"
+        [matAutocomplete]="rearLeftOuter"
+      />
+      <mat-autocomplete #rearLeftOuter="matAutocomplete">
+        <mat-option *ngFor="let tyre of tyreNumberOptions" [value]="tyre">
+          {{ tyre }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field style="width: 100%">
+      <input
+        type="text"
+        placeholder="Rear Right outer Tyre Number"
+        aria-label="Number"
+        matInput
+        formControlName="rearRightOuter"
+        (focus)="onFocusEvent('rearRightOuter')"
+        [matAutocomplete]="rearRightOuter"
+      />
+      <mat-autocomplete #rearRightOuter="matAutocomplete">
+        <mat-option *ngFor="let tyre of tyreNumberOptions" [value]="tyre">
+          {{ tyre }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field style="width: 100%">
+      <input
+        type="text"
+        placeholder="Rear Right inner Tyre Number"
+        aria-label="Number"
+        matInput
+        (focus)="onFocusEvent('rearRightInner')"
+        formControlName="rearRightInner"
+        [matAutocomplete]="rearRightInner"
+      />
+      <mat-autocomplete #rearRightInner="matAutocomplete">
+        <mat-option *ngFor="let tyre of tyreNumberOptions" [value]="tyre">
+          {{ tyre }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button
+      ion-button
+      block
+      color="danger"
+      type="submit"
+      (click)="saveBusDetails()"
+    >
+      Save
+    </button>
   </form>
 </ion-content>
-<ion-footer padding>
-  <button ion-button block color="danger" (click)="saveBusDetauls()">
-    Save
-  </button>
-</ion-footer>
+<ion-footer padding> </ion-footer>
