@@ -10,9 +10,9 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <form [formGroup]="busAddForm">
-    <mat-form-field style="width: 100%">
+    <mat-form-field style="width: 100%" padding>
       <input matInput placeholder="Bus Number" formControlName="busNumber" />
     </mat-form-field>
     <mat-accordion>
@@ -52,8 +52,6 @@
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
-
-        <mat-form-field> <input matInput placeholder="Age" /> </mat-form-field>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>

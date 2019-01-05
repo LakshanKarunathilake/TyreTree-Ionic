@@ -5,14 +5,155 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>GiveAwaysPage</ion-title>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content>
+  <form [formGroup]="giveAwayForm">
+    <div padding>
+      <mat-form-field style="width: 100%">
+        <input
+          type="text"
+          placeholder="Tyre House"
+          aria-label="Number"
+          matInput
+          formControlName="tyreHouses"
+          [matAutocomplete]="tyreHouses"
+          (focus)="onFocusEvent('tyreHouse')"
+        />
+        <mat-autocomplete #tyreHouses="matAutocomplete">
+          <mat-option
+            *ngFor="let tyreHouse of tyreHouseOptions"
+            [value]="tyreHouse"
+          >
+            {{ tyreHouse }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
 
-<ion-content padding>
+      <mat-form-field style="width: 100%">
+        <mat-select placeholder="Purpose" formControlName="purpose">
+          <mat-option value="1 Dagging">1 Dagging</mat-option>
+          <mat-option value="2 Dagging">2 Dagging</mat-option>
+          <mat-option value="3 Dagging">3 Dagging</mat-option>
+          <mat-option value="No guarantee">No guarantee</mat-option>
+        </mat-select>
+      </mat-form-field>
 
+      <mat-form-field style="width: 100%">
+        <input
+          type="text"
+          placeholder="Tyre Number"
+          aria-label="Number"
+          matInput
+          formControlName="tyreNumbers"
+          [matAutocomplete]="tyreNumbers"
+          (focus)="onFocusEvent('tyre')"
+        />
+        <mat-autocomplete #tyreNumbers="matAutocomplete">
+          <mat-option
+            *ngFor="let tyreNumber of tyreNumberOptions"
+            [value]="tyreNumber"
+          >
+            {{ tyreNumber }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div style="float: right;">
+        <button mat-stroked-button color="warn" (click)="addTyreToCategory()">
+          ADD
+        </button>
+      </div>
+    </div>
+    <div style="padding-top: 40px">
+      <mat-divider></mat-divider>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title style="font-weight: bold">
+              First Dagging
+            </mat-panel-title>
+            <mat-panel-description>
+              {{ selectedTyres.firstDag.length }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item *ngFor="let item of selectedTyres.firstDag">
+              {{ item }}
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-divider></mat-divider>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title style="font-weight: bold">
+              Second Dagging
+            </mat-panel-title>
+            <mat-panel-description>
+              {{ selectedTyres.secondDag.length }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item *ngFor="let item of selectedTyres.secondDag">
+              {{ item }}
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-divider></mat-divider>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title style="font-weight: bold">
+              Third Dagging
+            </mat-panel-title>
+            <mat-panel-description>
+              {{ selectedTyres.thirdDag.length }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item *ngFor="let item of selectedTyres.thirdDag">
+              {{ item }}
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-divider></mat-divider>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title style="font-weight: bold"
+              >No Guarantee
+            </mat-panel-title>
+            <mat-panel-description>
+              {{ selectedTyres.noGuarantee.length }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item *ngFor="let item of selectedTyres.noGuarantee">
+              {{ item }}
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-divider></mat-divider>
+    </div>
+    <button
+      ion-button
+      color="danger"
+      block
+      type="submit"
+      (click)="onFormSubmission()"
+    >
+      SUBMIT
+    </button>
+  </form>
 </ion-content>
