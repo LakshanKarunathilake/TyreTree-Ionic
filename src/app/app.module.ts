@@ -27,6 +27,7 @@ const firebaseConfig = {
     IonicModule.forRoot(MyApp),
     AngularFireAuthModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     BrowserAnimationsModule,
     ReactiveFormsModule

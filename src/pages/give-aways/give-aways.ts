@@ -85,18 +85,6 @@ export class GiveAwaysPage {
           this.tyreHouseOptions = this._filter(res, this.tyreHouses);
         });
       });
-    this.afs
-      .collection("Tyres")
-      .valueChanges()
-      .subscribe(res => {
-        res.forEach(element => {
-          this.tyreNumbers.push(element["tyreNumber"]);
-        });
-        this.tyreNumberOptions = this.tyreHouses;
-        this.giveAwayForm.get("tyreNumbers").valueChanges.subscribe(res => {
-          this.tyreNumberOptions = this._filter(res, this.tyreNumbers);
-        });
-      });
   }
 
   private _filter(value: string, options: string[]): string[] {
@@ -130,55 +118,105 @@ export class GiveAwaysPage {
     console.log("this.selectedTyres :", this.selectedTyres);
   }
 
-  onFocusEvent(name) {
-    // const { collectionName, elementName, formController } = this.controllers[
-    //   name
-    // ];
-    // this.afs
-    //   .collection(collectionName)
-    //   .valueChanges()
-    //   .subscribe(res => {
-    //     res.forEach(element => {
-    //       this.tyreNumbers.push(element[elementName]);
-    //     });
-    //     this.tyreNumberOptions = this.tyreHouses;
-    //     this.giveAwayForm.get(formController).valueChanges.subscribe(res => {
-    //       this.tyreNumberOptions = this._filter(res, this.tyreNumbers);
-    //     });
-    //   });
-  }
-
   onFormSubmission() {
+    const successMessage = `Details saved Successfully 
+    <br>
+    <br>      
+    <div align="center"> <img src="../assets/imgs/success.png" weight="50px" height="50px"></div>
+   `;
+    this.presentLoading("Saving To DB...");
     console.log("form Submitted");
     const tyreHouseName = this.giveAwayForm.value.tyreHouses;
-    const purpose = this.giveAwayForm.value.purpose;
-    Object.keys(this.selectedTyres).forEach(key => {
-      console.log("key", key);
+    const timeStamp = new Date();
+    const givenDate = this.formatDate(timeStamp);
+    const dueDate = timeStamp;
+    dueDate.setMonth(timeStamp.getMonth() + 4);
+    Object.keys(this.selectedTyres).forEach((key, index) => {
       this.selectedTyres[key].forEach(element => {
-        console.log("element :", element);
-        const timeStamp = new Date();
-        const dueDate = timeStamp;
-        dueDate.setMonth(timeStamp.getMonth() + 3);
-        this.saveGiveAwayToFireStore(
-          {
-            tyreNumber: element,
-            tyreHouse: tyreHouseName,
-            purpose: purpose,
-            givenDate: timeStamp.toString(),
-            dueDate: dueDate,
-            receivedStatus: false
-          },
-          timeStamp
-        );
+        this.saveGiveAwayToFireStore({
+          tyreNumber: element,
+          tyreHouse: tyreHouseName,
+          purpose: key,
+          givenDate: new Date(givenDate),
+          dueDate: new Date(this.formatDate(dueDate)),
+          receivedStatus: false
+        });
+        this.updateTyreAvailability(element);
       });
+      if (index === 3) {
+        this.emptySelectedTyreArray();
+        this.hideLoading();
+        this.presentAlert(successMessage);
+        this.giveAwayForm.reset();
+      }
     });
   }
 
-  saveGiveAwayToFireStore(value, timeStamp) {
+  selectionAction() {
+    const statusOfTyre = this.suitableTyreStatus();
+    console.log("statusOfTyre :", statusOfTyre);
+    this.tyreNumbers = [];
     this.afs
-      .collection("GiveAways")
-      .doc(timeStamp.toString())
-      .set(value);
+      .collection("Tyres", ref =>
+        ref
+          .where("tyreStatus", "==", statusOfTyre)
+          .where("availability", "==", "stock")
+      )
+      .valueChanges()
+      .subscribe(res => {
+        res.forEach(element => {
+          this.tyreNumbers.push(element["tyreNumber"]);
+        });
+        this.tyreNumberOptions = this.tyreHouses;
+        this.giveAwayForm.get("tyreNumbers").valueChanges.subscribe(res => {
+          this.tyreNumberOptions = this._filter(res, this.tyreNumbers);
+        });
+        this.giveAwayForm.get("tyreNumbers").setValue("");
+      });
+  }
+
+  suitableTyreStatus() {
+    const { purpose } = this.giveAwayForm.value;
+    console.log("purpose", purpose);
+    switch (purpose) {
+      case "1 Dagging":
+        return "Brand New";
+      case "2 Dagging":
+        return "Dagged 1";
+      case "3 Dagging":
+        return "Dagged 2";
+      case "No guarantee":
+        return "Dagged 3";
+
+      default:
+        return "";
+    }
+  }
+
+  updateTyreAvailability(tyreNumber: string) {
+    this.afs
+      .collection("Tyres")
+      .doc(tyreNumber)
+      .update({ availability: "tyreHouse" });
+  }
+
+  emptySelectedTyreArray() {
+    this.selectedTyres.firstDag = [];
+    this.selectedTyres.secondDag = [];
+    this.selectedTyres.thirdDag = [];
+    this.selectedTyres.noGuarantee = [];
+  }
+
+  formatDate(timeStamp: Date) {
+    const year = timeStamp.getFullYear();
+    const month = timeStamp.getMonth() + 1;
+    const day = timeStamp.getDate();
+
+    return `${year}-${month}-${day}`;
+  }
+
+  saveGiveAwayToFireStore(value) {
+    this.afs.collection("GiveAways").add(value);
   }
 
   presentLoading(message: string) {

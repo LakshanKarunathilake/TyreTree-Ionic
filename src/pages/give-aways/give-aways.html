@@ -21,7 +21,6 @@
           matInput
           formControlName="tyreHouses"
           [matAutocomplete]="tyreHouses"
-          (focus)="onFocusEvent('tyreHouse')"
         />
         <mat-autocomplete #tyreHouses="matAutocomplete">
           <mat-option
@@ -34,7 +33,11 @@
       </mat-form-field>
 
       <mat-form-field style="width: 100%">
-        <mat-select placeholder="Purpose" formControlName="purpose">
+        <mat-select
+          placeholder="Purpose"
+          formControlName="purpose"
+          (selectionChange)="selectionAction()"
+        >
           <mat-option value="1 Dagging">1 Dagging</mat-option>
           <mat-option value="2 Dagging">2 Dagging</mat-option>
           <mat-option value="3 Dagging">3 Dagging</mat-option>
@@ -42,7 +45,10 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field style="width: 100%">
+      <mat-form-field
+        style="width: 100%"
+        *ngIf="this.giveAwayForm.value.purpose"
+      >
         <input
           type="text"
           placeholder="Tyre Number"
@@ -50,7 +56,6 @@
           matInput
           formControlName="tyreNumbers"
           [matAutocomplete]="tyreNumbers"
-          (focus)="onFocusEvent('tyre')"
         />
         <mat-autocomplete #tyreNumbers="matAutocomplete">
           <mat-option
