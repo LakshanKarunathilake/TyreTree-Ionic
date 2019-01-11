@@ -17,6 +17,31 @@
     (ionCancel)="onCancel($event)"
   >
   </ion-searchbar>
+  <div padding>
+    <div *ngFor="let item of allGiveAways">
+      <div
+        style="display: flex;justify-content: space-between;margin-bottom: 10px;align-items: center;"
+      >
+        <span>{{ item.tyreNumber }}</span>
+        <span>
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="addTyreToCategory()"
+          >
+            View
+          </button>
+          <button
+            mat-stroked-button
+            color="warn"
+            (click)="receiveTheTyre(item.id, item.tyreNumber, item.purpose)"
+          >
+            RECEIVED
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
 </ion-content>
 <ion-footer>
   <mat-accordion>
