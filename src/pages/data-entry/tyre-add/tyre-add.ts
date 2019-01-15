@@ -119,7 +119,14 @@ export class TyreAddPage {
     this.afs
       .collection("Tyres")
       .doc(formSubmission.tyreNumber)
-      .set(formSubmission)
+      .set({
+        availability: "stock",
+        firstDag: "",
+        secondDag: "",
+        thirdDag: "",
+        noGuarantee: "",
+        ...formSubmission
+      })
       .then(() => {
         this.hideLoading();
         this.presentAlert(successMessage);
@@ -147,5 +154,11 @@ export class TyreAddPage {
         buttons: ["Dismiss"]
       })
       .present();
+  }
+  moveToHomePage() {
+    this.navCtrl.setRoot("HomePage");
+  }
+  logOut() {
+    this.navCtrl.setRoot("LoginPage");
   }
 }

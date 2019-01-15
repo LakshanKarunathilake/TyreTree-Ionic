@@ -145,4 +145,10 @@ export class BusAddPage {
       })
       .present();
   }
+  moveToHomePage() {
+    this.navCtrl.setRoot("HomePage");
+  }
+  logOut() {
+    this.navCtrl.setRoot("LoginPage");
+  }
 }

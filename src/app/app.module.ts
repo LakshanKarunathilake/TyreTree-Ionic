@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ReactiveFormsModule } from "@angular/forms";
 
 import { MyApp } from "./app.component";
+import { TyrePageModule } from "../pages/tyre/tyre.module";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBycA_PAAvjQGa_4LJ84KwhjDEVimVlB4U",
@@ -30,7 +31,8 @@ const firebaseConfig = {
     AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TyrePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],

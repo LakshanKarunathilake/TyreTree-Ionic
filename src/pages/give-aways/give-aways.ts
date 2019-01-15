@@ -154,7 +154,7 @@ export class GiveAwaysPage {
 
   selectionAction() {
     const statusOfTyre = this.suitableTyreStatus();
-    console.log("statusOfTyre :", statusOfTyre);
+    this.presentLoading("Accessing DB");
     this.tyreNumbers = [];
     this.afs
       .collection("Tyres", ref =>
@@ -164,6 +164,7 @@ export class GiveAwaysPage {
       )
       .valueChanges()
       .subscribe(res => {
+        console.log("res", res);
         res.forEach(element => {
           this.tyreNumbers.push(element["tyreNumber"]);
         });
@@ -172,6 +173,7 @@ export class GiveAwaysPage {
           this.tyreNumberOptions = this._filter(res, this.tyreNumbers);
         });
         this.giveAwayForm.get("tyreNumbers").setValue("");
+        this.hideLoading();
       });
   }
 
@@ -238,5 +240,11 @@ export class GiveAwaysPage {
         buttons: ["Dismiss"]
       })
       .present();
+  }
+  moveToHomePage() {
+    this.navCtrl.setRoot("HomePage");
+  }
+  logOut() {
+    this.navCtrl.setRoot("LoginPage");
   }
 }
