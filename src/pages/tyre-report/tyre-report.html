@@ -24,51 +24,17 @@
   </ion-fab>
 
   <p style="text-align: left;font-weight: bold">Report Summary</p>
+
   <mat-accordion>
     <mat-expansion-panel>
       <mat-expansion-panel-header> All Tyres </mat-expansion-panel-header>
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header> Brand New </mat-expansion-panel-header>
-          dasd
-        </mat-expansion-panel>
-      </mat-accordion>
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header> Dagged Once </mat-expansion-panel-header>
-          dasd
-        </mat-expansion-panel>
-      </mat-accordion>
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            Dagged Twice
-          </mat-expansion-panel-header>
-          dasd
-        </mat-expansion-panel>
-      </mat-accordion>
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            Dagged Thrice
-          </mat-expansion-panel-header>
-          dasd
-        </mat-expansion-panel>
-      </mat-accordion>
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            NO Guarantee
-          </mat-expansion-panel-header>
-          dasd
-        </mat-expansion-panel>
-      </mat-accordion>
+      <tyre-status-accordion [tyreData]="tyres"></tyre-status-accordion>
     </mat-expansion-panel>
   </mat-accordion>
   <mat-accordion>
     <mat-expansion-panel>
       <mat-expansion-panel-header> In Stock </mat-expansion-panel-header>
-      dasd
+      <tyre-status-accordion></tyre-status-accordion>
     </mat-expansion-panel>
   </mat-accordion>
   <mat-accordion>

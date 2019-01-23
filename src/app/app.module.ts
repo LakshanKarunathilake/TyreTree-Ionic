@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 
 import { MyApp } from "./app.component";
 import { TyrePageModule } from "../pages/tyre/tyre.module";
+import { FireStoreProvider } from '../providers/fire-store/fire-store';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBycA_PAAvjQGa_4LJ84KwhjDEVimVlB4U",
@@ -39,7 +40,8 @@ const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    FireStoreProvider
   ]
 })
 export class AppModule {}

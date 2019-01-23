@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { FireStoreProvider } from "../../providers/fire-store/fire-store";
+import { Observable } from "rxjs";
+import { Tyre } from "../../models/Tyre";
 
 /**
  * Generated class for the TyreReportPage page.
@@ -10,16 +13,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-tyre-report',
-  templateUrl: 'tyre-report.html',
+  selector: "page-tyre-report",
+  templateUrl: "tyre-report.html"
 })
 export class TyreReportPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  tyres = [];
+  tyresObservable: Observable<Tyre[]>;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private fsp: FireStoreProvider
+  ) {
+    this.tyresObservable = this.fsp.getTyres();
+    this.tyresObservable.subscribe(el => (this.tyres = el));
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TyreReportPage');
+    console.log("ionViewDidLoad TyreReportPage");
   }
-
 }
