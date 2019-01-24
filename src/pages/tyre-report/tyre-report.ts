@@ -22,10 +22,6 @@ export class TyreReportPage {
   inStock = [];
   inTyreHouse = [];
   inBus = [];
-  // tyres;
-  // inStock;
-  // inTyreHouse;
-  // inBus;
   tyresObservable: Observable<Tyre[]>;
   constructor(
     public navCtrl: NavController,
@@ -36,13 +32,10 @@ export class TyreReportPage {
     this.tyresObservable = this.afs.collection("Tyres").valueChanges();
     this.tyresObservable.subscribe(el => {
       this.tyres = el;
-      console.log("this.tyres :", this.tyres);
       let inStock = [];
       let inBus = [];
       let inTyreHouse = [];
-      el.forEach((tyre, index) => {
-        console.log("tyre", tyre);
-
+      el.forEach(tyre => {
         switch (tyre.availability) {
           case "stock":
             inStock.push(tyre);
@@ -62,12 +55,8 @@ export class TyreReportPage {
       this.inStock = inStock;
       this.inBus = inBus;
       this.inTyreHouse = inTyreHouse;
-      console.log("this.inStock", this.inStock);
-      console.log("this.inTyreHouse", this.inTyreHouse);
     });
   }
-
-  ngOnInit(): void {}
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad TyreReportPage");
