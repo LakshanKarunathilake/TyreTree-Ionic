@@ -36,26 +36,32 @@ export class TyreReportPage {
     this.tyresObservable = this.afs.collection("Tyres").valueChanges();
     this.tyresObservable.subscribe(el => {
       this.tyres = el;
-      console.log('this.tyres :', this.tyres);
+      console.log("this.tyres :", this.tyres);
+      let inStock = [];
+      let inBus = [];
+      let inTyreHouse = [];
       el.forEach((tyre, index) => {
         console.log("tyre", tyre);
 
         switch (tyre.availability) {
           case "stock":
-            this.inStock.push(tyre);
+            inStock.push(tyre);
             break;
           case "tyreHouse":
-            this.inTyreHouse.push(tyre);
+            inTyreHouse.push(tyre);
             break;
           case "bus":
-            this.inBus.push(tyre);
+            inBus.push(tyre);
             break;
 
           default:
             console.log("Executing default in tyre Report class");
             break;
-        }        
+        }
       });
+      this.inStock = inStock;
+      this.inBus = inBus;
+      this.inTyreHouse = inTyreHouse;
       console.log("this.inStock", this.inStock);
       console.log("this.inTyreHouse", this.inTyreHouse);
     });

@@ -23,31 +23,33 @@ export class TyreStatusAccordionComponent {
   };
   private tyres = [];
   @Input()
-  set tyreData(value) {
-    console.log("tyreData", value);
+  tyreData: any;
+  // set tyreData(value) {
+  //   console.log("tyreData", value);
 
-    value.forEach(val => {
-      switch (val.tyreStatus) {
-        case "Brand New":
-          this.tyreTypes.brandNew.push(val.tyreNumber);
-          break;
-        case "1 Dagged":
-          this.tyreTypes.firstDag.push(val.tyreNumber);
-          break;
-        case "2 Dagged":
-          this.tyreTypes.secondDag.push(val.tyreNumber);
-          break;
-        case "3 Dagged":
-          this.tyreTypes.thirdDag.push(val.tyreNumber);
-          break;
-        case "No Guarantee":
-          this.tyreTypes.noGuarantee.push(val.tyreNumber);
-          break;
+  //   value.forEach(val => {
+  //     switch (val.tyreStatus) {
+  //       case "Brand New":
+  //         this.tyreTypes.brandNew.push(val.tyreNumber);
+  //         break;
+  //       case "1 Dagged":
+  //         this.tyreTypes.firstDag.push(val.tyreNumber);
+  //         break;
+  //       case "2 Dagged":
+  //         this.tyreTypes.secondDag.push(val.tyreNumber);
+  //         break;
+  //       case "3 Dagged":
+  //         this.tyreTypes.thirdDag.push(val.tyreNumber);
+  //         break;
+  //       case "No Guarantee":
+  //         this.tyreTypes.noGuarantee.push(val.tyreNumber);
+  //         break;
 
-        default:
-          break;
-      }
-    });
+  //       default:
+  //         break;
+  //     }
+  //   });
+
 
     this.tyres = value;
   }

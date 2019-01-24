@@ -134,7 +134,7 @@ export class ReceivingsPage {
 
     var updatingObject = {};
     updatingObject["availability"] = "stock";
-    updatingObject["tyreStats"] = this.selectTheNextStatus(purpose);
+    updatingObject["tyreStatus"] = this.selectTheNextStatus(purpose);
     updatingObject[purpose] = new Date();
     this.afs
       .collection("Tyres")
@@ -165,11 +165,11 @@ export class ReceivingsPage {
   selectTheNextStatus(purpose: string) {
     switch (purpose) {
       case "firstDag":
-        return "Dagged 1";
+        return "1 Dagged";
       case "secondDag":
-        return "Dagged 2";
+        return "2 Dagged";
       case "thirdDag":
-        return "Dagged 3";
+        return "3 Dagged";
       case "noGuarantee":
         return "No Guarantee";
 
