@@ -24,23 +24,23 @@
   </ion-fab>
 
   <p style="text-align: left;font-weight: bold">Report Summary</p>
-
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header> In Stock </mat-expansion-panel-header>
+      <tyre-status-accordion [tyreData]="inStock"></tyre-status-accordion>
+    </mat-expansion-panel>
+  </mat-accordion>
   <mat-accordion>
     <mat-expansion-panel>
       <mat-expansion-panel-header> All Tyres </mat-expansion-panel-header>
       <tyre-status-accordion [tyreData]="tyres"></tyre-status-accordion>
     </mat-expansion-panel>
   </mat-accordion>
+
   <mat-accordion>
     <mat-expansion-panel>
-      <mat-expansion-panel-header> In Stock </mat-expansion-panel-header>
-      <tyre-status-accordion></tyre-status-accordion>
-    </mat-expansion-panel>
-  </mat-accordion>
-  <mat-accordion>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header> In Buses </mat-expansion-panel-header>
-      dasd
+      <mat-expansion-panel-header> In TyreHouse </mat-expansion-panel-header>
+      <tyre-status-accordion [tyreData]="inTyreHouse"></tyre-status-accordion>
     </mat-expansion-panel>
   </mat-accordion>
   <mat-accordion>
@@ -49,16 +49,20 @@
       dasd
     </mat-expansion-panel>
   </mat-accordion>
-  <div style="display: flex;justify-content: space-between">
-    <span>Total Tyres : </span> <span>23</span>
-  </div>
-  <div style="display: flex;justify-content: space-between">
-    <span>In Stock : </span> <span>23</span>
-  </div>
-  <div style="display: flex;justify-content: space-between">
-    <span>In Buses : </span> <span>23</span>
-  </div>
-  <div style="display: flex;justify-content: space-between">
-    <span>In Tyre Houses : </span> <span>23</span>
-  </div>
 </ion-content>
+<ion-footer>
+  <div padding>
+    <div style="display: flex;justify-content: space-between">
+      <span>Total </span> <span>{{ tyres.length }}</span>
+    </div>
+    <div style="display: flex;justify-content: space-between">
+      <span>In Stock </span> <span>{{ inStock.length }}</span>
+    </div>
+    <div style="display: flex;justify-content: space-between">
+      <span>In Buses </span> <span>{{ inBus.length }}</span>
+    </div>
+    <div style="display: flex;justify-content: space-between">
+      <span>In Tyre Houses </span> <span>{{ inTyreHouse.length }}</span>
+    </div>
+  </div>
+</ion-footer>

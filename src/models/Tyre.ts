@@ -9,4 +9,5 @@ export interface Tyre {
   brand?: string;
   purchasedTyreHouse?: string;
   status?: string;
+  availability?: string;
 }

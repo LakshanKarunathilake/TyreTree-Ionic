@@ -27,7 +27,6 @@ export class TyreStatusAccordionComponent {
     console.log("tyreData", value);
 
     value.forEach(val => {
-      console.log("tyreStatus", val.tyreStatus);
       switch (val.tyreStatus) {
         case "Brand New":
           this.tyreTypes.brandNew.push(val.tyreNumber);
@@ -48,7 +47,6 @@ export class TyreStatusAccordionComponent {
         default:
           break;
       }
-      console.log("this.tyreTypes", this.tyreTypes);
     });
 
     this.tyres = value;
