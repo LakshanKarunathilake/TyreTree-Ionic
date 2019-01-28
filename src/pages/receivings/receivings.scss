@@ -1,3 +1,16 @@
 page-receivings {
-
+  .viewMoreButton {
+    height: 30px;
+    width: 100px;
+    background-color: aqua;
+    border: 1px solid red;
+    border-radius: 15px;
+  }
+  .receiveButton {
+    height: 30px;
+    width: 100px;
+    background-color: red;
+    border: 1px solid black;
+    border-radius: 15px;
+  }
 }

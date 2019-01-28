@@ -23,4 +23,10 @@ export class DataEntryPage {
     console.log("page", page);
     this.navCtrl.push(page);
   }
+  moveToHomePage() {
+    this.navCtrl.setRoot("HomePage");
+  }
+  logOut() {
+    this.navCtrl.setRoot("LoginPage");
+  }
 }

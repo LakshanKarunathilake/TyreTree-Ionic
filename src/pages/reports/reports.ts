@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 /**
  * Generated class for the ReportsPage page.
@@ -10,16 +10,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-reports',
-  templateUrl: 'reports.html',
+  selector: "page-reports",
+  templateUrl: "reports.html"
 })
 export class ReportsPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ReportsPage');
+    console.log("ionViewDidLoad ReportsPage");
   }
 
+  movePage(page: string) {
+    this.navCtrl.push(page);
+  }
+
+  moveToHomePage() {
+    this.navCtrl.setRoot("HomePage");
+  }
+  logOut() {
+    this.navCtrl.setRoot("LoginPage");
+  }
 }

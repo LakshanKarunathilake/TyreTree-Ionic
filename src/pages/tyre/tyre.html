@@ -1,0 +1,62 @@
+<!--
+  Generated template for the TyrePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Close</button> </ion-buttons
+    ><ion-title>Tyre Information</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col> Tyre Number </ion-col>
+      <ion-col align-self-end> {{ tyre.tyreNumber }} </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Current Status </ion-col>
+      <ion-col align-self-end> {{ tyre.tyreStatus }} </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col> Brand </ion-col>
+      <ion-col align-self-end> {{ tyre.brand }} </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col> Availability </ion-col>
+      <ion-col align-self-end> {{ tyre.availability }} </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col> Price </ion-col>
+      <ion-col align-self-end> {{ tyre.price }} </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col> Purchased From </ion-col>
+      <ion-col align-self-end> {{ tyre.tyreHouse }} </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col> Purchased </ion-col>
+      <ion-col align-self-end> {{ tyre.purchasedDate }} </ion-col>
+    </ion-row>
+    <ion-row *ngIf="tyre.firstDag != ''">
+      <ion-col> First Dag </ion-col>
+      <ion-col align-self-end> {{ tyre.firstDag }} </ion-col>
+    </ion-row>
+    <ion-row *ngIf="tyre.secondDag != ''">
+      <ion-col> Second Dag </ion-col>
+      <ion-col align-self-end> {{ tyre.secondDag }} </ion-col>
+    </ion-row>
+    <ion-row *ngIf="tyre.thirdDag != ''">
+      <ion-col> Third Dag </ion-col>
+      <ion-col align-self-end> {{ tyre.thirdDag }} </ion-col>
+    </ion-row>
+    <ion-row *ngIf="tyre.thirdDag != ''">
+      <ion-col> No Guarantee </ion-col>
+      <ion-col align-self-end> {{ tyre.noGuarantee }} </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -6,8 +6,12 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ReactiveFormsModule } from "@angular/forms";
 
 import { MyApp } from "./app.component";
+import { TyrePageModule } from "../pages/tyre/tyre.module";
+import { FireStoreProvider } from '../providers/fire-store/fire-store';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBycA_PAAvjQGa_4LJ84KwhjDEVimVlB4U",
@@ -25,14 +29,19 @@ const firebaseConfig = {
     IonicModule.forRoot(MyApp),
     AngularFireAuthModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule.enablePersistence(),
+    AngularFirestoreModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    TyrePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    FireStoreProvider
   ]
 })
 export class AppModule {}
