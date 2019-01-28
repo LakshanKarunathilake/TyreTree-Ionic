@@ -24,6 +24,13 @@
   </ion-fab>
 
   <p style="text-align: left;font-weight: bold">Report Summary</p>
+
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header> All Tyres </mat-expansion-panel-header>
+      <tyre-status-accordion [tyreData]="tyres"></tyre-status-accordion>
+    </mat-expansion-panel>
+  </mat-accordion>
   <mat-accordion>
     <mat-expansion-panel>
       <mat-expansion-panel-header> In Stock </mat-expansion-panel-header>
@@ -32,20 +39,13 @@
   </mat-accordion>
   <mat-accordion>
     <mat-expansion-panel>
-      <mat-expansion-panel-header> All Tyres </mat-expansion-panel-header>
-      <tyre-status-accordion [tyreData]="tyres"></tyre-status-accordion>
-    </mat-expansion-panel>
-  </mat-accordion>
-
-  <mat-accordion>
-    <mat-expansion-panel>
       <mat-expansion-panel-header> In TyreHouse </mat-expansion-panel-header>
       <tyre-status-accordion [tyreData]="inTyreHouse"></tyre-status-accordion>
     </mat-expansion-panel>
   </mat-accordion>
   <mat-accordion>
     <mat-expansion-panel>
-      <mat-expansion-panel-header> In Tyre Houses </mat-expansion-panel-header>
+      <mat-expansion-panel-header> In Bus </mat-expansion-panel-header>
       <tyre-status-accordion [tyreData]="inBus"></tyre-status-accordion>
     </mat-expansion-panel>
   </mat-accordion>
