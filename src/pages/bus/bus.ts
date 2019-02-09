@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { Bus } from '../../models/Bus';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { TyrePage } from '../tyre/tyre';
 
 /**
  * Generated class for the BusPage page.
@@ -16,7 +18,7 @@ import { Bus } from '../../models/Bus';
 })
 export class BusPage {
   bus: Bus
-  constructor(public navCtrl: NavController, public navParams: NavParams,private viewCtrl:ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private afs: AngularFirestore, private modalCtrl: ModalController) {
     this.bus = navParams.get('Bus');
     console.log('bus', this.bus)
   }
@@ -27,6 +29,17 @@ export class BusPage {
 
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  viewTyreDetails(tyreNumber) {
+    console.log("clicked");
+    this.afs
+      .collection("Tyres")
+      .doc(tyreNumber)
+      .valueChanges()
+      .subscribe(response => {
+        this.modalCtrl.create(TyrePage, { Tyre: response }).present();
+      });
   }
 
 }

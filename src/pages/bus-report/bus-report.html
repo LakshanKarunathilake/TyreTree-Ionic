@@ -14,6 +14,7 @@
 
 
 <ion-content padding>
+  <p>Select a bus number to view the tyre details of each bus</p>
   <quick-fab></quick-fab>
   <button ion-button *ngFor="let bus of buses | async" block outline (click)="viewBusDetails(bus.busNumber)">{{bus.busNumber}}</button>
 </ion-content>

@@ -17,31 +17,52 @@
 
 <ion-content padding>
   <div style="border:1px solid blue;padding-left: 1rem;margin-bottom: 10px;padding-right: 1rem">
-      <p style="text-align: center;font-weight: bold">FRONT</p>
-      <mat-form-field >
-        <input matInput placeholder="LEFT" disabled [(ngModel)]="bus.frontLeft">
-      </mat-form-field>
-      <mat-form-field >
-        <input matInput placeholder="LEFT" disabled [(ngModel)]="bus.frontRight">
-      </mat-form-field>
+    <p style="font-weight: bold">FRONT</p>
+    <mat-form-field style="width: 100%">
+      <input matInput placeholder="LEFT" disabled [(ngModel)]="bus.frontLeft" style="width: 70%">
+      <button mat-button color="primary" style="float: right" (click)="viewTyreDetails(bus.frontLeft)">
+        view
+      </button>
+    </mat-form-field>
+    <mat-form-field style="width: 100%">
+      <input matInput placeholder="LEFT" disabled [(ngModel)]="bus.frontRight" style="width: 70%">
+      <button mat-button color="primary" style="float: right" (click)="viewTyreDetails(bus.frontRight)">
+        view
+      </button>
+    </mat-form-field>
   </div>
   <div style="border:1px solid blue;padding-left: 1rem;padding-right: 1rem">
-  
-    <p style="text-align: center;font-weight: bold">REAR</p>
-    <mat-form-field>
-      <input matInput placeholder="REAR LEFT OUTER" disabled [(ngModel)]="bus.rearLeftOuter">
+
+    <p style="font-weight: bold">REAR</p>
+    <mat-form-field style="width: 100%">
+
+      <input matInput placeholder="REAR LEFT OUTER" disabled [(ngModel)]="bus.rearLeftOuter" style="width: 50%">
+      <button mat-button color="primary" style="float: right" (click)="viewTyreDetails(bus.rearLeftOuter)">
+        view
+      </button>
+
     </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="REAR LEFT INNER" disabled [(ngModel)]="bus.rearLeftInner">
+
+    <mat-form-field style="width: 100%">
+      <input matInput placeholder="REAR LEFT INNER" disabled [(ngModel)]="bus.rearLeftInner" style="width: 70%">
+      <button mat-button color="primary" style="float: right" (click)="viewTyreDetails(bus.rearLeftInner)">
+        view
+      </button>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="REAR RIGHT OUTER" disabled [(ngModel)]="bus.rearRightOuter">
+    <mat-form-field style="width: 100%">
+      <input matInput placeholder="REAR RIGHT OUTER" disabled [(ngModel)]="bus.rearRightOuter" style="width: 70%">
+      <button mat-button color="primary" style="float: right" (click)="viewTyreDetails(bus.rearRightOuter)">
+        view
+      </button>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="REAR RIGHT INNER" disabled [(ngModel)]="bus.rearRightInner">
+    <mat-form-field style="width: 100%">
+      <input matInput placeholder="REAR RIGHT INNER" disabled [(ngModel)]="bus.rearRightInner" style="width: 70%">
+      <button mat-button color="primary" style="float: right" (click)="viewTyreDetails(bus.rearRightInner)">
+        view
+      </button>
     </mat-form-field>
-  
-  
-  
+
+
+
   </div>
 </ion-content>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { BusPage } from './bus';
-import { MatInputModule } from '@angular/material';
+import { MatInputModule, MatButtonModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -9,7 +9,8 @@ import { MatInputModule } from '@angular/material';
   ],
   imports: [
     IonicPageModule.forChild(BusPage),
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
 })
 export class BusPageModule {}
