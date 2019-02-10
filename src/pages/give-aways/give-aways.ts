@@ -154,6 +154,7 @@ export class GiveAwaysPage {
 
   selectionAction() {
     const statusOfTyre = this.suitableTyreStatus();
+    console.log('statusOfTyre', statusOfTyre)
     this.presentLoading("Accessing DB");
     this.tyreNumbers = [];
     this.afs
@@ -177,20 +178,21 @@ export class GiveAwaysPage {
       });
   }
 
-  suitableTyreStatus() {
+  suitableTyreStatus() : string {
     const { purpose } = this.giveAwayForm.value;
     console.log("purpose", purpose);
     switch (purpose) {
       case "1 Dagging":
         return "Brand New";
       case "2 Dagging":
-        return "Dagged 1";
+        return "1 Dagged";
       case "3 Dagging":
-        return "Dagged 2";
+        return "2 Dagged";
       case "No guarantee":
-        return "Dagged 3";
+        return "3 Dagged";
 
       default:
+      console.log('default switch');
         return "";
     }
   }
@@ -241,10 +243,5 @@ export class GiveAwaysPage {
       })
       .present();
   }
-  moveToHomePage() {
-    this.navCtrl.setRoot("HomePage");
-  }
-  logOut() {
-    this.navCtrl.setRoot("LoginPage");
-  }
+
 }

@@ -1,6 +1,4 @@
 import { Component, Input } from "@angular/core";
-import { FireStoreProvider } from "../../providers/fire-store/fire-store";
-import { Observable } from "rxjs";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { ModalController } from "ionic-angular";
 import { TyrePage } from "../../pages/tyre/tyre";

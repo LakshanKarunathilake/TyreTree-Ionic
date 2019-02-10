@@ -1,10 +1,10 @@
 export interface Tyre {
   number?: string;
   purchasedDate?: string;
-  firstDag?: Date;
-  secondDag?: Date;
-  thirdDag?: Date;
-  noGuarantee?: Date;
+  firstDag?: string
+  secondDag?: string;
+  thirdDag?: string;
+  noGuarantee?: string;
   price?: string;
   brand?: string;
   purchasedTyreHouse?: string;

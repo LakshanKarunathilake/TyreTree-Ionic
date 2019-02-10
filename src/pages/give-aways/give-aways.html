@@ -11,19 +11,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-fab top right edge>
-    <button ion-fab clear>
-      <ion-icon name="more" color="danger"></ion-icon>
-    </button>
-    <ion-fab-list>
-      <button ion-fab (click)="moveToHomePage()">
-        <ion-icon name="home"></ion-icon>
-      </button>
-      <button ion-fab (click)="logOut()">
-        <ion-icon name="log-out"></ion-icon>
-      </button>
-    </ion-fab-list>
-  </ion-fab>
+  <quick-fab></quick-fab>
   <form [formGroup]="giveAwayForm">
     <div padding>
       <mat-form-field style="width: 100%">

@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MyApp } from "./app.component";
 import { TyrePageModule } from "../pages/tyre/tyre.module";
 import { FireStoreProvider } from '../providers/fire-store/fire-store';
+import { BusPageModule } from "../pages/bus/bus.module";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBycA_PAAvjQGa_4LJ84KwhjDEVimVlB4U",
@@ -33,7 +34,8 @@ const firebaseConfig = {
     AngularFirestoreModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    TyrePageModule
+    TyrePageModule,
+    BusPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],

@@ -29,10 +29,29 @@ export class TyrePage {
   ) {
     this.tyre = navParams.get("Tyre");
     this.additionalInfo = navParams.get("additionalInfo");
-    this.tyre.purchasedDate = this.formatDate(
-      new Date(this.tyre.purchasedDate["seconds"] * 1000)
-    );
-    console.log("tyre :", this.tyre, "additional", this.additionalInfo);
+    if(this.tyre.purchasedDate)
+      this.tyre.purchasedDate = this.formatDate(
+        new Date(this.tyre.purchasedDate["seconds"] * 1000)
+      );
+      
+    if(this.tyre.firstDag)     
+      this.tyre.firstDag = this.formatDate(
+        new Date(this.tyre.firstDag["seconds"] * 1000)
+      );
+
+    if(this.tyre.secondDag)     
+      this.tyre.secondDag = this.formatDate(
+        new Date(this.tyre.secondDag["seconds"] * 1000)
+      );
+    if(this.tyre.thirdDag)   
+      this.tyre.thirdDag = this.formatDate(
+        new Date(this.tyre.thirdDag["seconds"] * 1000)
+      );
+      
+    if(this.tyre.noGuarantee)   
+      this.tyre.noGuarantee = this.formatDate(
+        new Date(this.tyre.noGuarantee["seconds"] * 1000)
+      );
   }
 
   ionViewDidLoad() {
