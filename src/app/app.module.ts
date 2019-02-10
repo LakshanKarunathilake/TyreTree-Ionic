@@ -13,6 +13,7 @@ import { MyApp } from "./app.component";
 import { TyrePageModule } from "../pages/tyre/tyre.module";
 import { FireStoreProvider } from '../providers/fire-store/fire-store';
 import { BusPageModule } from "../pages/bus/bus.module";
+import { ReceivingPageModule } from "../pages/receiving/receiving.module";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBycA_PAAvjQGa_4LJ84KwhjDEVimVlB4U",
@@ -35,7 +36,8 @@ const firebaseConfig = {
     BrowserAnimationsModule,
     ReactiveFormsModule,
     TyrePageModule,
-    BusPageModule
+    BusPageModule,
+    ReceivingPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],
