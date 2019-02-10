@@ -10,6 +10,7 @@ import {
   MatListModule,
   MatDividerModule
 } from "@angular/material";
+import { ComponentsModule } from "../../components/components.module";
 
 @NgModule({
   declarations: [GiveAwaysPage],
@@ -22,7 +23,8 @@ import {
     MatExpansionModule,
     MatButtonModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    ComponentsModule
   ]
 })
 export class GiveAwaysPageModule {}
