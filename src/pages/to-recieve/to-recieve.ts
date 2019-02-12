@@ -52,9 +52,9 @@ export class ToRecievePage {
   }
 
   viewReceiveDetails(tyreNumber) {
-    console.log('clicked');
+    console.log('clicked',tyreNumber);
     this.afs
-      .collection("Tyres", ref =>
+      .collection("GiveAways", ref =>
         ref
           .where("tyreNumber", "==", tyreNumber)
           .where("receivedStatus", "==", false)
@@ -62,7 +62,7 @@ export class ToRecievePage {
       .valueChanges()
       .subscribe(response => {
         console.log('response :', response);
-        this.modalCtrl.create(ReceivingPage, { Receiving: response }).present();
+        this.modalCtrl.create(ReceivingPage, { Receiving: response[0] }).present();
       });
   }
 }
