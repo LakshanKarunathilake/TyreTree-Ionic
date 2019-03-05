@@ -25,6 +25,7 @@
   <form [formGroup]="busAddForm">
     <mat-form-field style="width: 100%" padding>
       <input matInput placeholder="Bus Number" formControlName="busNumber" />
+      <mat-error *ngIf="hasError('busNumber', 'required')">Bus Number is required</mat-error>
     </mat-form-field>
     <mat-accordion>
       <mat-expansion-panel>
@@ -46,6 +47,8 @@
               {{ tyre }}
             </mat-option>
           </mat-autocomplete>
+      <mat-error *ngIf="hasError('busNumber', 'required')">Bus Number is required</mat-error>
+
         </mat-form-field>
         <mat-form-field style="width: 100%">
           <input

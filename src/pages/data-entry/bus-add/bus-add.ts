@@ -8,7 +8,7 @@ import {
   AlertController
 } from "ionic-angular";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
+import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
 import { Observable, of } from "rxjs";
 import { map, startWith } from "rxjs/operators";
 
@@ -41,27 +41,24 @@ export class BusAddPage {
   ];
 
   tyreNumbersObservable: Observable<string[]>;
-  // frontLeftNumberArray: Observable<string[]>;
-  // frontRightNumberArray: Observable<string[]>;
-  // rearLeftOuterNumberArray: Observable<string[]>;
-  // rearLeftInnerNumberArray: Observable<string[]>;
-  // rearRightOuterNumberArray: Observable<string[]>;
-  // rearRightInnerNumberArray: Observable<string[]>;
-
   frontLeftFC = new FormControl();
   frontRightFC = new FormControl();
+
+  public hasError(controlName: string, errorName: string){
+    return this.busAddForm.controls[controlName].hasError(errorName);
+  }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.busAddForm = this.fb.group({
-      frontLeft: "",
-      frontRight: "",
-      rearLeftOuter: "",
-      rearLeftInner: "",
-      rearRightOuter: "",
-      rearRightInner: "",
-      busNumber: ""
+      frontLeft: ["",Validators.required],
+      frontRight: ["",Validators.required],
+      rearLeftOuter: ["",Validators.required],
+      rearLeftInner: ["",Validators.required],
+      rearRightOuter: ["",Validators.required],
+      rearRightInner: ["",Validators.required],
+      busNumber: ["",Validators.required],
     });
 
     this.afs
@@ -113,16 +110,33 @@ export class BusAddPage {
   }
 
   saveBusDetails() {
-    const busDetails = this.busAddForm.value;
-    this.presentLoading("Savind to DB");
-    this.afs
-      .collection("Buses")
-      .doc(busDetails.busNumber)
-      .set(busDetails)
-      .then(() => {
-        this.hideLoading();
-        this.busAddForm.reset();
-      });
+    const successMessage = `Details saved Successfully 
+    <br>
+    <br>      
+    <div align="center"> <img src="../assets/imgs/success.png" weight="50px" height="50px"></div>
+   `;
+
+   const errorMessage = `Please enter valid details 
+   <br>
+   <br>      
+   <div align="center"> <img src="../assets/imgs/failure.png" weight="50px" height="50px"></div>
+  `;
+    if(this.busAddForm.valid){
+      const busDetails = this.busAddForm.value;
+      this.presentLoading("Savind to DB");
+      this.afs
+        .collection("Buses")
+        .doc(busDetails.busNumber)
+        .set(busDetails)
+        .then(() => {
+          this.hideLoading();
+          this.busAddForm.reset();
+          this.presentAlert(errorMessage);
+        });
+    }else{
+      this.presentAlert(errorMessage)
+    }
+    
   }
 
   presentLoading(message: string) {

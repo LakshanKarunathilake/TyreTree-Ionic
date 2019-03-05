@@ -31,6 +31,7 @@
             {{ tyreHouse }}
           </mat-option>
         </mat-autocomplete>
+        <mat-error *ngIf="hasError('tyreHouses', 'required')">Tyre House is required</mat-error>
       </mat-form-field>
 
       <mat-form-field style="width: 100%">
@@ -44,6 +45,7 @@
           <mat-option value="3 Dagging">3 Dagging</mat-option>
           <mat-option value="No guarantee">No guarantee</mat-option>
         </mat-select>
+        <mat-error *ngIf="hasError('purpose', 'required')">Please select an option</mat-error>
       </mat-form-field>
 
       <mat-form-field

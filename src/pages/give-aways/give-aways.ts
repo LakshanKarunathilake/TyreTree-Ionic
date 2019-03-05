@@ -9,7 +9,7 @@ import {
   Form
 } from "ionic-angular";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 /**
  * Generated class for the GiveAwaysPage page.
@@ -69,9 +69,9 @@ export class GiveAwaysPage {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.giveAwayForm = this.fb.group({
-      tyreHouses: "",
+      tyreHouses: ["",Validators.required],
       tyreNumbers: "",
-      purpose: ""
+      purpose: ["",Validators.required]
     });
     this.afs
       .collection("TyreHouses")
@@ -124,32 +124,48 @@ export class GiveAwaysPage {
     <br>      
     <div align="center"> <img src="../assets/imgs/success.png" weight="50px" height="50px"></div>
    `;
-    this.presentLoading("Saving To DB...");
-    console.log("form Submitted");
-    const tyreHouseName = this.giveAwayForm.value.tyreHouses;
-    const timeStamp = new Date();
-    const givenDate = this.formatDate(timeStamp);
-    const dueDate = timeStamp;
-    dueDate.setMonth(timeStamp.getMonth() + 4);
-    Object.keys(this.selectedTyres).forEach((key, index) => {
-      this.selectedTyres[key].forEach(element => {
-        this.saveGiveAwayToFireStore({
-          tyreNumber: element,
-          tyreHouse: tyreHouseName,
-          purpose: key,
-          givenDate: new Date(givenDate),
-          dueDate: new Date(this.formatDate(dueDate)),
-          receivedStatus: false
+
+   const errorMessage = `Please enter valid details 
+   <br>
+   <br>      
+   <div align="center"> <img src="../assets/imgs/failure.png" weight="50px" height="50px"></div>
+  `;
+  
+    if(this.giveAwayForm.valid){
+      this.presentLoading("Saving To DB...");
+      console.log("form Submitted");
+      const tyreHouseName = this.giveAwayForm.value.tyreHouses;
+      const timeStamp = new Date();
+      const givenDate = this.formatDate(timeStamp);
+      const dueDate = timeStamp;
+      dueDate.setMonth(timeStamp.getMonth() + 4);
+      Object.keys(this.selectedTyres).forEach((key, index) => {
+        this.selectedTyres[key].forEach(element => {
+          this.saveGiveAwayToFireStore({
+            tyreNumber: element,
+            tyreHouse: tyreHouseName,
+            purpose: key,
+            givenDate: new Date(givenDate),
+            dueDate: new Date(this.formatDate(dueDate)),
+            receivedStatus: false
+          });
+          this.updateTyreAvailability(element);
         });
-        this.updateTyreAvailability(element);
+        if (index === 3) {
+          this.emptySelectedTyreArray();
+          this.hideLoading();
+          this.presentAlert(successMessage);
+          this.giveAwayForm.reset();
+        }
       });
-      if (index === 3) {
-        this.emptySelectedTyreArray();
-        this.hideLoading();
-        this.presentAlert(successMessage);
-        this.giveAwayForm.reset();
-      }
-    });
+    }else{
+      this.presentAlert(errorMessage);
+    }
+    
+  }
+
+  public hasError(controlName: string, errorName: string){
+    return this.giveAwayForm.controls[controlName].hasError(errorName);
   }
 
   selectionAction() {
