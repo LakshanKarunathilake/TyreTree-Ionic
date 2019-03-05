@@ -131,7 +131,7 @@ export class BusAddPage {
         .then(() => {
           this.hideLoading();
           this.busAddForm.reset();
-          this.presentAlert(errorMessage);
+          this.presentAlert(successMessage);
         });
     }else{
       this.presentAlert(errorMessage)

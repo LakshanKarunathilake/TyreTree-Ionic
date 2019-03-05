@@ -28,6 +28,7 @@
   <form [formGroup]="tyreAddForm">
     <mat-form-field style="width: 100%">
       <input matInput placeholder="Tyre Number" formControlName="tyreNumber" />
+      <mat-error *ngIf="hasError('tyreNumber', 'required')">Tyre Number is required</mat-error>
     </mat-form-field>
     <mat-form-field style="width: 100%">
       <input
@@ -37,7 +38,6 @@
         formControlName="price"
       />
     </mat-form-field>
-
     <mat-form-field style="width: 100%">
       <input
         type="text"
@@ -52,6 +52,7 @@
           {{ brand }}
         </mat-option>
       </mat-autocomplete>
+      <mat-error *ngIf="hasError('brand', 'required')">Brand is required</mat-error>
     </mat-form-field>
 
     <mat-form-field style="width: 100%">
@@ -67,8 +68,8 @@
           {{ brand }}
         </mat-option>
       </mat-autocomplete>
+      <mat-error *ngIf="hasError('tyreHouse', 'required')">Tyre House is required</mat-error>
     </mat-form-field>
-
     <mat-form-field style="width: 100%">
       <mat-select placeholder="Tyre Status" formControlName="tyreStatus">
         <mat-option value="Brand New">Brand New</mat-option>
@@ -77,6 +78,7 @@
         <mat-option value="Dagged 3">Dagged 3</mat-option>
         <mat-option value="No Guarantee">No Guarantee</mat-option>
       </mat-select>
+      <mat-error *ngIf="hasError('tyreStatus', 'required')">Status is required</mat-error>
     </mat-form-field>
     <mat-form-field style="width: 100%">
       <input

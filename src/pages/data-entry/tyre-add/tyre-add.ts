@@ -8,7 +8,7 @@ import {
   AlertController
 } from "ionic-angular";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { FormControl, FormBuilder, FormGroup } from "@angular/forms";
+import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Observable } from "rxjs";
 import { map, startWith, filter } from "rxjs/operators";
 
@@ -36,19 +36,19 @@ export class TyreAddPage {
   tyreHouseOptions: string[] = [];
   tyreHouses: Observable<string[]>;
 
-  brandFormControl = new FormControl();
-  tyreHouseFormControl = new FormControl();
+  brandFormControl = new FormControl("",Validators.required);
+  tyreHouseFormControl = new FormControl("",Validators.required);
   purchasedDateFormControl = new FormControl(new Date());
 
   tyreAddForm: FormGroup;
 
   ngOnInit() {
     this.tyreAddForm = this.formBuilder.group({
-      tyreNumber: "",
+      tyreNumber: ["",Validators.required],
       price: "",
       brand: this.brandFormControl,
       tyreHouse: this.tyreHouseFormControl,
-      tyreStatus: "",
+      tyreStatus: ["",Validators.required],
       purchasedDate: this.purchasedDateFormControl
     });
 
@@ -75,6 +75,10 @@ export class TyreAddPage {
           })
         );
       });
+  }
+
+  public hasError(controlName: string, errorName: string){
+    return this.tyreAddForm.controls[controlName].hasError(errorName);
   }
 
   private _filter(value: string, options: string[]): string[] {
@@ -114,26 +118,31 @@ export class TyreAddPage {
         <div align="center"> <img src="../assets/imgs/success.png" weight="50px" height="50px"></div>
        `;
     const errorMessage =
-      'Adding Failure <br><br><div align="center"> <img src="../../../assets/imgs/success.png" weight="40px" height="40px"></div>';
-    this.presentLoading();
-    this.afs
-      .collection("Tyres")
-      .doc(formSubmission.tyreNumber)
-      .set({
-        availability: "stock",
-        firstDag: "",
-        secondDag: "",
-        thirdDag: "",
-        noGuarantee: "",
-        ...formSubmission
-      })
-      .then(() => {
-        this.hideLoading();
-        this.presentAlert(successMessage);
-      })
-      .catch(err0r => {
-        this.presentAlert(errorMessage);
-      });
+      'Invalid Form details please check again <br><br><div align="center"> <img src="../../../assets/imgs/failure.png" weight="40px" height="40px"></div>';
+    if(this.tyreAddForm.valid){
+      this.presentLoading();
+      this.afs
+        .collection("Tyres")
+        .doc(formSubmission.tyreNumber)
+        .set({
+          availability: "stock",
+          firstDag: "",
+          secondDag: "",
+          thirdDag: "",
+          noGuarantee: "",
+          ...formSubmission
+        })
+        .then(() => {
+          this.hideLoading();
+          this.presentAlert(successMessage);
+        })
+        .catch(err0r => {
+          this.presentAlert(errorMessage);
+        });
+    }else{
+      this.presentAlert(errorMessage);
+
+    }
   }
   presentLoading() {
     this.loading = this.loadingCtrl.create({

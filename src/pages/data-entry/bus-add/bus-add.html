@@ -47,8 +47,7 @@
               {{ tyre }}
             </mat-option>
           </mat-autocomplete>
-      <mat-error *ngIf="hasError('busNumber', 'required')">Bus Number is required</mat-error>
-
+          <mat-error *ngIf="hasError('frontLeft', 'required')">Front left Number is required</mat-error>
         </mat-form-field>
         <mat-form-field style="width: 100%">
           <input
@@ -65,6 +64,7 @@
               {{ tyre }}
             </mat-option>
           </mat-autocomplete>
+          <mat-error *ngIf="hasError('frontRight', 'required')">Tyre Number is required</mat-error>
         </mat-form-field>
       </mat-expansion-panel>
       <mat-expansion-panel>
@@ -86,6 +86,7 @@
               {{ tyre }}
             </mat-option>
           </mat-autocomplete>
+          <mat-error *ngIf="hasError('rearLeftOuter', 'required')">Tyre Number is required</mat-error>
         </mat-form-field>
 
         <mat-form-field style="width: 100%">
@@ -103,6 +104,7 @@
               {{ tyre }}
             </mat-option>
           </mat-autocomplete>
+          <mat-error *ngIf="hasError('rearLeftInner', 'required')">Tyre Number is required</mat-error>
         </mat-form-field>
         <mat-form-field style="width: 100%">
           <input
@@ -119,6 +121,7 @@
               {{ tyre }}
             </mat-option>
           </mat-autocomplete>
+          <mat-error *ngIf="hasError('rearRightOuter', 'required')">Tyre Number is required</mat-error>
         </mat-form-field>
         <mat-form-field style="width: 100%">
           <input
@@ -135,6 +138,7 @@
               {{ tyre }}
             </mat-option>
           </mat-autocomplete>
+          <mat-error *ngIf="hasError('rearRightInner', 'required')">Tyre Number is required</mat-error>
         </mat-form-field>
       </mat-expansion-panel>
     </mat-accordion>
